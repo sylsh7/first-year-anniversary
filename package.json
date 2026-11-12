@@ -1,0 +1,9 @@
+{
+  "name": "first-year-album",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {"dev": "vite", "build": "tsc --noEmit && vite build", "preview": "vite preview"},
+  "dependencies": {"react": "19.1.0", "react-dom": "19.1.0"},
+  "devDependencies": {"vite": "6.3.5", "typescript": "5.8.3", "@types/react": "19.1.2", "@types/react-dom": "19.1.2"}
+}
