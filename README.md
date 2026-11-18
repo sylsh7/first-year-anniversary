@@ -55,6 +55,17 @@ npm run preview
 
 ## 源码和发布
 
-GitHub 用于保存源码和修改历史。推送代码不会自动更新已发布的网站；发布需要使用 `dist/` 并另行执行部署。
+在线地址：https://sylsh7.github.io/first-year-anniversary/
+
+GitHub Pages 从 `gh-pages` 分支发布网页；`main` 分支保存 React 源码。公开网页无需登录即可访问。
+
+```sh
+npm run build:pages
+npm run publish:pages
+```
+
+`publish:pages` 会重新检查和构建项目，再将静态文件更新到 `gh-pages` 分支。需要本机已完成 GitHub 的 Git 登录。以后仍沿用同一个网页地址。
+
+普通 `npm run build` 保留根路径，适用于 Sites 等其他托管；`build:pages` 会正确设置 GitHub Pages 的项目子路径，照片、字体和音乐均随构建部署。
 
 `.openai/hosting.json` 保留原 Sites 项目的关联信息，方便后续更新同一个 Site。

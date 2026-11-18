@@ -1,3 +1,6 @@
+// Respect the deployment base so local preview, Sites and GitHub Pages share the same assets.
+const publicAsset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
+
 export type Photo = { src: string; alt: string; caption?: string; position?: string; width?: number; height?: number; preview?: 'scroll' }
 type Memory = Photo & { back: string }
 type CalendarMemory = { date: string; title: string; text?: string; image: Photo; camera?: boolean }
@@ -7,10 +10,10 @@ type Sticker = { id: string; alt: string; crop: [number, number, number, number]
 
 export const cover = {
   title: 'Happy Anniversary',
-  background: { src: '/photos/collage-paper.jpg', alt: '保留褶皱和纸纤维的米白纸面' },
-  image: { src: '/photos/childhood-polaroid.png', alt: '小时候一起吹蜡烛的拍立得，保留完整照片和原有白边' } as Photo | null,
-  candle: { src: '/photos/candle-cutout.svg', alt: '一支带有蜡泪的独立蜡烛' },
-  sheet: { src: '/photos/anniversary-sticker-sheet.png', width: 941, height: 1672 },
+  background: { src: publicAsset('/photos/collage-paper.jpg'), alt: '保留褶皱和纸纤维的米白纸面' },
+  image: { src: publicAsset('/photos/childhood-polaroid.png'), alt: '小时候一起吹蜡烛的拍立得，保留完整照片和原有白边' } as Photo | null,
+  candle: { src: publicAsset('/photos/candle-cutout.svg'), alt: '一支带有蜡泪的独立蜡烛' },
+  sheet: { src: publicAsset('/photos/anniversary-sticker-sheet.png'), width: 941, height: 1672 },
   titlePieces: [
     { crop: [240, 592, 460, 118], x: 155, y: 0, width: 460, height: 118 },
     { crop: [89, 710, 770, 130], x: 0, y: 110, width: 770, height: 130 },
@@ -33,14 +36,14 @@ export const cover = {
 export const memories = {
   title: '这些，你还记得吗？',
   background: cover.background,
-  frame: { src: '/photos/heart-polaroid-frame.svg', alt: '带红心的纸质拍立得边框', width: 990, height: 1395, window: { left: '6.0606%', top: '4.2294%', width: '87.6768%', height: '79.9283%' } },
-  sheet: { src: '/photos/memory-sticker-sheet.png', width: 941, height: 1672 },
+  frame: { src: publicAsset('/photos/heart-polaroid-frame.svg'), alt: '带红心的纸质拍立得边框', width: 990, height: 1395, window: { left: '6.0606%', top: '4.2294%', width: '87.6768%', height: '79.9283%' } },
+  sheet: { src: publicAsset('/photos/memory-sticker-sheet.png'), width: 941, height: 1672 },
   stickers: [
     { id: 'ps', alt: 'p.s. i love u 撕纸条', crop: [20, 32, 300, 132] },
     { id: 'watercolor-heart', alt: '深粉色水彩爱心', crop: [369, 228, 259, 222] },
     { id: 'flower-stamp', alt: '粉色花卉邮票', crop: [594, 802, 332, 260] },
   ] as Sticker[],
-  clips: ['/photos/clothespin-1.svg?v=2', '/photos/clothespin-2.svg?v=2', '/photos/clothespin-3.svg?v=2'],
+  clips: [publicAsset('/photos/clothespin-1.svg?v=2'), publicAsset('/photos/clothespin-2.svg?v=2'), publicAsset('/photos/clothespin-3.svg?v=2')],
   paperLabel: '待显影的相纸',
   takeHint: '摇一摇',
   hangHint: '挂上去',
@@ -51,11 +54,11 @@ export const memories = {
   flipFront: '翻回正面',
   nextLabel: '进入第三页日历',
   photos: [
-    { src: '/photos/IMG_7255.jpg', alt: '捧着第一次收到的鲜花', back: '第一次收到花。是你送的！' },
-    { src: '/photos/IMG_7795.jpg', alt: '第一个520的惊喜', back: '第一个520，我给你的惊喜。\n你开心了好久好久。' },
-    { src: '/photos/IMG_1315.jpg', alt: '第一次见奶龙的那天', back: '你第一次见奶龙。\n下大雨，我们都打不到车哈哈哈哈。' },
-    { src: '/photos/IMG_2288.jpg', alt: '第一次去拍大头贴时的自拍', back: '我们第一次去拍大头贴。\n你在打车，我在臭美。' },
-    { src: '/photos/IMG_2516.jpg', alt: '第一次陪你看比赛时的自拍', back: '第一次陪你去看比赛。\n我啥都看不懂，只能自拍。' },
+    { src: publicAsset('/photos/IMG_7255.jpg'), alt: '捧着第一次收到的鲜花', back: '第一次收到花。是你送的！' },
+    { src: publicAsset('/photos/IMG_7795.jpg'), alt: '第一个520的惊喜', back: '第一个520，我给你的惊喜。\n你开心了好久好久。' },
+    { src: publicAsset('/photos/IMG_1315.jpg'), alt: '第一次见奶龙的那天', back: '你第一次见奶龙。\n下大雨，我们都打不到车哈哈哈哈。' },
+    { src: publicAsset('/photos/IMG_2288.jpg'), alt: '第一次去拍大头贴时的自拍', back: '我们第一次去拍大头贴。\n你在打车，我在臭美。' },
+    { src: publicAsset('/photos/IMG_2516.jpg'), alt: '第一次陪你看比赛时的自拍', back: '第一次陪你去看比赛。\n我啥都看不懂，只能自拍。' },
   ] satisfies Memory[],
 }
 
@@ -68,21 +71,21 @@ export const calendar = {
   weekdays: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
   monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   background: cover.background,
-  paper: { src: '/photos/calendar-paper.png', alt: '复古夹子夹着错落的米色纸页与旧小票' },
-  pin: { src: '/photos/calendar-pin.svg', alt: '红色图钉' },
-  stamp: { src: '/photos/calendar-stamp.svg', alt: '粉色爱心邮票' },
-  camera: { src: '/photos/calendar-camera.svg', alt: '银色复古数码相机' },
+  paper: { src: publicAsset('/photos/calendar-paper.png'), alt: '复古夹子夹着错落的米色纸页与旧小票' },
+  pin: { src: publicAsset('/photos/calendar-pin.svg'), alt: '红色图钉' },
+  stamp: { src: publicAsset('/photos/calendar-stamp.svg'), alt: '粉色爱心邮票' },
+  camera: { src: publicAsset('/photos/calendar-camera.svg'), alt: '银色复古数码相机' },
   shutter: '按下快门',
   captured: '一周年照片已拍好',
   nextLabel: '进入第四页',
   previousLabel: '返回第二页',
   items: [
-    { date: '2025-08-16', title: '我们第一次加微信', text: '', image: { src: '/photos/calendar-2025-08-16.png', alt: '我们第一次加微信的聊天记录', width: 1206, height: 2622, preview: 'scroll' } },
-    { date: '2025-11-19', title: '我们在一起的那天', text: '', image: { src: '/photos/calendar-2025-11-19.png', alt: '我们在一起那天的聊天记录', width: 1206, height: 2622, preview: 'scroll' } },
-    { date: '2026-04-24', title: '我们终于见面的那天', text: '', image: { src: '/photos/calendar-2026-04-24.jpg', alt: '我们终于见面那天的照片', width: 1920, height: 2560 } },
-    { date: '2026-06-22', title: '我们一起去成都的那天', text: '', image: { src: '/photos/calendar-2026-06-22.jpg', alt: '我们一起去成都那天的照片', width: 1920, height: 2560 } },
-    { date: '2026-09-07', title: '我们分别的那天', text: '', image: { src: '/photos/calendar-2026-09-07.jpg', alt: '我们分别那天的照片', width: 1920, height: 2560 } },
-    { date: '2026-11-19', title: '今天！我们一周年的那天！', text: '', camera: true, image: { src: '/photos/calendar-2026-11-19.jpg', alt: '我们和蛋糕的一周年合照', width: 1532, height: 1027 } },
+    { date: '2025-08-16', title: '我们第一次加微信', text: '', image: { src: publicAsset('/photos/calendar-2025-08-16.png'), alt: '我们第一次加微信的聊天记录', width: 1206, height: 2622, preview: 'scroll' } },
+    { date: '2025-11-19', title: '我们在一起的那天', text: '', image: { src: publicAsset('/photos/calendar-2025-11-19.png'), alt: '我们在一起那天的聊天记录', width: 1206, height: 2622, preview: 'scroll' } },
+    { date: '2026-04-24', title: '我们终于见面的那天', text: '', image: { src: publicAsset('/photos/calendar-2026-04-24.jpg'), alt: '我们终于见面那天的照片', width: 1920, height: 2560 } },
+    { date: '2026-06-22', title: '我们一起去成都的那天', text: '', image: { src: publicAsset('/photos/calendar-2026-06-22.jpg'), alt: '我们一起去成都那天的照片', width: 1920, height: 2560 } },
+    { date: '2026-09-07', title: '我们分别的那天', text: '', image: { src: publicAsset('/photos/calendar-2026-09-07.jpg'), alt: '我们分别那天的照片', width: 1920, height: 2560 } },
+    { date: '2026-11-19', title: '今天！我们一周年的那天！', text: '', camera: true, image: { src: publicAsset('/photos/calendar-2026-11-19.jpg'), alt: '我们和蛋糕的一周年合照', width: 1532, height: 1027 } },
   ] as CalendarMemory[],
 }
 
@@ -112,10 +115,10 @@ export const sharedHours = {
   message: '这个点，我们终于可以隔着屏幕见面了。',
   instruction: '拖动滑块，找到我们见面的时间。',
   slider: '调整时刻',
-  sliderHeart: { src: '/photos/slider-heart.svg', width: 32, height: 31, targetOpacity: .22 },
+  sliderHeart: { src: publicAsset('/photos/slider-heart.svg'), width: 32, height: 31, targetOpacity: .22 },
   people: {
-    girl: { src: '/photos/hours-girl-sticker.png', alt: '捧着小红心的女孩贴纸' },
-    boy: { src: '/photos/hours-boy-sticker.png', alt: '捧着小红心的男孩贴纸' },
+    girl: { src: publicAsset('/photos/hours-girl-sticker.png'), alt: '捧着小红心的女孩贴纸' },
+    boy: { src: publicAsset('/photos/hours-boy-sticker.png'), alt: '捧着小红心的男孩贴纸' },
     approachMinutes: 240,
     revealMs: 1900,
   },
@@ -144,20 +147,20 @@ export const letter = {
   clearEnvelopeMs: 700,
   pullDistance: 42,
   envelope: {
-    src: '/photos/letter-envelope.png', width: 1374, height: 1145, crop: [125, 140, 1110, 890],
+    src: publicAsset('/photos/letter-envelope.png'), width: 1374, height: 1145, crop: [125, 140, 1110, 890],
     flapClip: 'polygon(1.8% 34.3%,80.6% 2.7%,50.9% 57.3%)',
     hinge: [18, 343, 806, 27],
   },
   openEnvelope: {
-    src: '/photos/letter-envelope-open.jpeg', width: 736, height: 1104, crop: [65, 235, 610, 635],
+    src: publicAsset('/photos/letter-envelope-open.jpeg'), width: 736, height: 1104, crop: [65, 235, 610, 635],
     outline: 'M76 573Q85 532 125 463L211 299Q239 244 263 248L548 383Q565 390 573 414L658 658Q665 676 649 684L202 853Q185 862 175 839L79 593Q74 582 76 573Z',
     pocket: 'M76 573L308 607Q302 593 307 578Q301 553 332 560L351 568Q367 527 393 536Q428 536 416 578L551 385Q565 390 573 414L658 658Q665 676 649 684L202 853Q185 862 175 839L79 593Z',
     slot: 'M75 578L550 385L660 670L190 853Z M-1000 -1000H2000V-205L-1000 1014Z',
     paperX: 176, paperY: 580, paperWidth: 300, paperHeight: 400,
     pullTravel: 510,
   },
-  paper: { src: '/photos/letter-paper.png', aspect: 1087 / 1446, alt: '保留蝴蝶结、上下装饰与折痕的米白信纸' },
-  heart: { src: '/photos/letter-heart.png', alt: '粉色水彩爱心封贴' },
+  paper: { src: publicAsset('/photos/letter-paper.png'), aspect: 1087 / 1446, alt: '保留蝴蝶结、上下装饰与折痕的米白信纸' },
+  heart: { src: publicAsset('/photos/letter-heart.png'), alt: '粉色水彩爱心封贴' },
   paragraphs: [
     '嘿嘿，老公，没想到我的惊喜是这个吧！不要太感动哟！在这里感谢gpt老师，没有它我是根本做不出来的。总之，这个网站还有很多很多可以改进的地方，我也还有很多想法都没有实现。但是我这个拖延症，一直拖拖拖到最后才开始，还好最后的成品不错，嘿嘿！',
     '这一年真的过得好快好快！一眨眼，我们都在一起一年了呢！还记得我们在一起前，我说过感觉谈一年的情侣好牛逼啊，没想到咱俩竟然这么快也一年啦！这一年，我们俩共同度过了许多时光，不管是开心的、难过的、生气的，都是我们俩共同的回忆，现在想想都觉得幸福呢！',
@@ -185,25 +188,25 @@ export const gift = {
   cutSegments: 48,
   flapDragPx: 34,
   unfoldMs: 550,
-  note: { src: '/photos/parcel-note.png', alt: '粉色波浪边祝福纸条' },
+  note: { src: publicAsset('/photos/parcel-note.png'), alt: '粉色波浪边祝福纸条' },
   parcels: [
     {
       id: 'mouse', label: '大包裹',
-      art: { src: '/photos/parcel-large.png', width: 1254, height: 1254, crop: [180, 185, 865, 865] },
+      art: { src: publicAsset('/photos/parcel-large.png'), width: 1254, height: 1254, crop: [180, 185, 865, 865] },
       corners: [[370, 23], [970, 150], [620, 283], [23, 168]],
       bodyClip: 'polygon(2.3% 16.8%, 62% 28.3%, 97% 15%, 97% 82.1%, 61.7% 98.3%, 1.2% 87.3%)',
       opening: 'M23 168L370 23L970 150L620 283Z',
-      image: { src: '/photos/parcel-mouse.svg?v=2', alt: '蓝色卡通游戏鼠标' } as Photo,
+      image: { src: publicAsset('/photos/parcel-mouse.svg?v=2'), alt: '蓝色卡通游戏鼠标' } as Photo,
       blessing: '送给世界上打三角洲最厉害的男人',
       blessingLines: ['送给世界上', '打三角洲最厉害的男人'],
     },
     {
       id: 'toothbrush', label: '小包裹',
-      art: { src: '/photos/parcel-small.png', width: 1536, height: 1024, crop: [190, 80, 1150, 880] },
+      art: { src: publicAsset('/photos/parcel-small.png'), width: 1536, height: 1024, crop: [190, 80, 1150, 880] },
       corners: [[443, 17], [978, 281], [541, 632], [24, 324]],
       bodyClip: 'polygon(2.4% 32.4%, 54.1% 63.2%, 97.8% 28.1%, 98.3% 59.1%, 55.6% 97.2%, 2.4% 62.5%)',
       opening: 'M24 324L443 17L978 281L541 632Z',
-      image: { src: '/photos/parcel-toothbrush.png', alt: '黄色卡通电动牙刷' } as Photo,
+      image: { src: publicAsset('/photos/parcel-toothbrush.png'), alt: '黄色卡通电动牙刷' } as Photo,
       blessing: '记得好好刷牙哦！',
       blessingLines: ['记得好好刷牙哦！'],
     },
@@ -221,7 +224,7 @@ export const ui = {
 }
 
 export const music = {
-  src: '/audio/background-music.mp3',
+  src: publicAsset('/audio/background-music.mp3'),
   volume: 0.2,
   fadeInMs: 1800,
   pause: '暂停背景音乐',
@@ -238,14 +241,14 @@ export const coupons = {
   scratchLabel: '按住鼠标涂抹，刮开银色涂层',
   scratchThreshold: .6,
   revealIntervalMs: 500,
-  font: { family: 'Butter Bread', src: '/fonts/ButterBread.ttf', status: 'user-provided' },
+  font: { family: 'Butter Bread', src: publicAsset('/fonts/ButterBread.ttf'), status: 'user-provided' },
   background: cover.background,
   heart: { sheet: cover.sheet, crop: [291, 1188, 75, 77] as [number, number, number, number] },
   previous: '返回第三页', next: '进入第五页',
   cards: [
-    { id: 'peace', title: '和好券', reward: '凭此券可以马上和好。', rewardLines: ['凭此券可以', '马上和好。'], face: '/photos/coupon-pink.png', sticker: null, color: '#b96a83' },
-    { id: 'game', title: '游戏券', reward: '凭此券一天内可以不限时打游戏。', rewardLines: ['凭此券一天内可以', '不限时打游戏。'], face: '/photos/coupon-green.png', sticker: '/photos/coupon-controller.png', color: '#789788' },
-    { id: 'ammo', title: 'awm子弹券', reward: '凭此券可以兑换520发aw子弹。', rewardLines: ['凭此券可以兑换', '520发aw子弹。'], face: '/photos/coupon-orange.png', sticker: '/photos/coupon-ammo.png', color: '#c28a59' },
-    { id: 'wish', title: '万能券', reward: '凭此券可以兑换一个愿望。', rewardLines: ['凭此券可以兑换', '一个愿望。'], face: '/photos/coupon-purple.png', sticker: '/photos/coupon-gift.png', color: '#9e80af' },
+    { id: 'peace', title: '和好券', reward: '凭此券可以马上和好。', rewardLines: ['凭此券可以', '马上和好。'], face: publicAsset('/photos/coupon-pink.png'), sticker: null, color: '#b96a83' },
+    { id: 'game', title: '游戏券', reward: '凭此券一天内可以不限时打游戏。', rewardLines: ['凭此券一天内可以', '不限时打游戏。'], face: publicAsset('/photos/coupon-green.png'), sticker: publicAsset('/photos/coupon-controller.png'), color: '#789788' },
+    { id: 'ammo', title: 'awm子弹券', reward: '凭此券可以兑换520发aw子弹。', rewardLines: ['凭此券可以兑换', '520发aw子弹。'], face: publicAsset('/photos/coupon-orange.png'), sticker: publicAsset('/photos/coupon-ammo.png'), color: '#c28a59' },
+    { id: 'wish', title: '万能券', reward: '凭此券可以兑换一个愿望。', rewardLines: ['凭此券可以兑换', '一个愿望。'], face: publicAsset('/photos/coupon-purple.png'), sticker: publicAsset('/photos/coupon-gift.png'), color: '#9e80af' },
   ],
 }
