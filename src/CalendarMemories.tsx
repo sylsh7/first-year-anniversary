@@ -1,3 +1,4 @@
+import { PageArrow } from './PageArrow'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { calendar, type Photo } from './content'
 
@@ -145,9 +146,9 @@ export function CalendarMemories({ view, active, previous, next }: {
             {!captured && <span className="camera-hint">{calendar.shutter} ↙</span>}
           </div>}
           {photo && <div className={`pinned-memory ${memory.camera ? 'fresh-capture' : ''}`}>
-            <figure className="calendar-photo-print" style={{ width: `min(100%, calc(${memory.camera ? 32 : 43}vh * ${photoRatios[photo.src] ?? 4 / 3} + 24px))` }}>
+            <figure className="calendar-photo-print" style={{ width: `min(100%, calc(${memory.camera ? calendar.capturedPhotoHeightVh : calendar.photoHeightVh}vh * ${photoRatios[photo.src] ?? (photo.width && photo.height ? photo.width / photo.height : 4 / 3)} + 24px))` }}>
               <button onClick={event => view(photo, event.currentTarget)} aria-label={photo.alt}>
-                <img src={photo.src} alt={photo.alt} onLoad={event => {
+                <img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} onLoad={event => {
                   const image = event.currentTarget
                   if (!image.naturalWidth || !image.naturalHeight) return
                   const ratio = image.naturalWidth / image.naturalHeight
@@ -166,7 +167,7 @@ export function CalendarMemories({ view, active, previous, next }: {
         </div>}
       </div>
     </div>
-    <button className="calendar-back-arrow" onClick={previous} aria-label={calendar.previousLabel}>←</button>
-    {done && <button className="calendar-next-arrow" onClick={next} aria-label={calendar.nextLabel}>→</button>}
+    <PageArrow direction="previous" label={calendar.previousLabel} onClick={previous} />
+    {done && <PageArrow direction="next" label={calendar.nextLabel} onClick={next} />}
   </section>
 }

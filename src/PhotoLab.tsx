@@ -1,3 +1,4 @@
+import { PageArrow } from './PageArrow'
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from 'react'
 import { flushSync } from 'react-dom'
 import { memories, ui, type Photo } from './content'
@@ -329,10 +330,8 @@ export function PhotoLab({ previous, next }: { previous: () => void; next: () =>
       <div className="lab-spare-clips" aria-hidden="true">
         {memories.clips.slice(0, 2).map((src, index) => <img key={src} src={src} alt="" style={{ transform: `rotate(${index ? -28 : 66}deg)` }} />)}
       </div>
-      <button className="lab-return" onClick={previous}>← {ui.previous}</button>
-      {hung.length === memories.photos.length && <button className="lab-next-arrow" aria-label={memories.nextLabel} onClick={next}>
-        <svg viewBox="0 0 40 20" width="40" height="20" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true"><path d="M2 10h34M28 2l8 8-8 8" /></svg>
-      </button>}
+      <PageArrow direction="previous" label={ui.previous} onClick={previous} />
+      {hung.length === memories.photos.length && <PageArrow direction="next" label={memories.nextLabel} onClick={next} />}
       {hint && <div className={`lab-instructions ${followHint ? 'lab-photo-hint' : ''}`} aria-live="polite"
         style={followHint ? { left: `${hintAnchor.x}%`, top: `${hintAnchor.y}%` } : undefined}><p>{hint}{followHint && <span aria-hidden="true"> ↙</span>}</p></div>}
       {photo && extracted && progress < 1 && <progress className="sr-only" aria-label={memories.progressLabel} value={progress} max={1} />}
