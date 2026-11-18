@@ -28,5 +28,5 @@ if (run('git', ['ls-remote', '--heads', 'origin', 'gh-pages'], deploy, true)) {
 run('git', ['add', '--all'], deploy)
 const unchanged = spawnSync('git', ['diff', '--cached', '--quiet'], { cwd: deploy }).status === 0
 if (!unchanged) run('git', ['-c', `user.name=${name}`, '-c', `user.email=${email}`, 'commit', '--quiet', '-m', 'Publish anniversary website'], deploy)
-run('git', ['push', '--porcelain', 'origin', 'gh-pages'], deploy)
+run('git', ['-c', 'http.postBuffer=524288000', '-c', 'http.version=HTTP/1.1', 'push', '--porcelain', 'origin', 'gh-pages'], deploy)
 console.log('Published branch: gh-pages')
